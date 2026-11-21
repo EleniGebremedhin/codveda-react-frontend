@@ -193,6 +193,8 @@ function App() {
 
         {tasks.length === 0 ? (
           <p>No tasks yet. Add your first task!</p>
+        ) : filteredTasks.length === 0 ? (
+          <p>No tasks match your search or filter.</p>
         ) : (
           <TaskList
             tasks={filteredTasks}
