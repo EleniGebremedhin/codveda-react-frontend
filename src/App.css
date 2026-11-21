@@ -160,3 +160,10 @@ p {
   border-color: #0f766e;
   box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
 }
+.error-message {
+  color: #dc2626;
+  background: #fee2e2;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
