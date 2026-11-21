@@ -14,6 +14,7 @@ function App() {
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [isAdding, setIsAdding] = useState(false);
   const [updatingTaskId, setUpdatingTaskId] = useState(null);
   const [deletingTaskId, setDeletingTaskId] = useState(null);
@@ -52,6 +53,7 @@ function App() {
     try {
       setIsAdding(true);
       setError("");
+      setSuccess("");
 
       const response = await fetch("http://localhost:3000/tasks", {
         method: "POST",
@@ -71,6 +73,7 @@ function App() {
       const newTask = await response.json();
       setTasks([...tasks, newTask]);
       setTaskTitle("");
+      setSuccess("Task added successfully!");
     } catch (error) {
       setError(error.message);
     } finally {
@@ -90,6 +93,7 @@ function App() {
     try {
       setUpdatingTaskId(id);
       setError("");
+      setSuccess("");
 
       const response = await fetch(`http://localhost:3000/tasks/${id}`, {
         method: "PUT",
@@ -110,6 +114,7 @@ function App() {
           task.id === id ? { ...task, completed: updatedStatus } : task,
         ),
       );
+      setSuccess("Task updated successfully!");
     } catch (error) {
       setError(error.message);
     } finally {
@@ -125,6 +130,7 @@ function App() {
     try {
       setDeletingTaskId(id);
       setError("");
+      setSuccess("");
 
       const response = await fetch(`http://localhost:3000/tasks/${id}`, {
         method: "DELETE",
@@ -135,6 +141,7 @@ function App() {
       }
 
       setTasks(tasks.filter((task) => task.id !== id));
+      setSuccess("Task deleted successfully!");
     } catch (error) {
       setError(error.message);
     } finally {
@@ -198,6 +205,7 @@ function App() {
             </button>
           </div>
         )}
+        {success && <p className="success-message">{success}</p>}
 
         {tasks.length === 0 ? (
           <p>No tasks yet. Add your first task!</p>

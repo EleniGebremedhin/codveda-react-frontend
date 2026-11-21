@@ -188,3 +188,10 @@ p {
 .error-message button:hover {
   background: #b91c1c;
 }
+.success-message {
+  color: #0f766e;
+  background: #ccfbf1;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
