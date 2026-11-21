@@ -14,6 +14,7 @@ function App() {
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isAdding, setIsAdding] = useState(false);
 
   // Fetch tasks from the backend when the app loads
   useEffect(() => {
@@ -42,11 +43,14 @@ function App() {
 
   // Function to add a new task
   async function addTask() {
-    if (taskTitle.trim() === "") {
+    if (taskTitle.trim() === "" || isAdding) {
       return;
     }
 
     try {
+      setIsAdding(true);
+      setError("");
+
       const response = await fetch("http://localhost:3000/tasks", {
         method: "POST",
         headers: {
@@ -63,11 +67,12 @@ function App() {
       }
 
       const newTask = await response.json();
-
       setTasks([...tasks, newTask]);
       setTaskTitle("");
     } catch (error) {
       setError(error.message);
+    } finally {
+      setIsAdding(false);
     }
   }
   // Function to mark a task as completed or pending
@@ -147,6 +152,7 @@ function App() {
         taskTitle={taskTitle}
         setTaskTitle={setTaskTitle}
         onAddTask={addTask}
+        isAdding={isAdding}
       />
 
       {/* Display Tasks */}
