@@ -167,3 +167,24 @@ p {
   border-radius: 8px;
   margin-bottom: 15px;
 }
+.error-message {
+  color: #dc2626;
+  background: #fee2e2;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.error-message button {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.error-message button:hover {
+  background: #b91c1c;
+}

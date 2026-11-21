@@ -189,7 +189,15 @@ function App() {
         <h2>My Tasks ({tasks.length})</h2>
         {loading && <p>Loading tasks...</p>}
 
-        {error && <p className="error-message">{error}</p>}
+        {error && (
+          <div className="error-message">
+            <p>{error}</p>
+
+            <button type="button" onClick={() => window.location.reload()}>
+              Try Again
+            </button>
+          </div>
+        )}
 
         {tasks.length === 0 ? (
           <p>No tasks yet. Add your first task!</p>
