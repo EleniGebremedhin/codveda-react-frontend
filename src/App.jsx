@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import TaskItem from "./components/TaskItem";
+import TaskList from "./components/TaskList";
+import TaskForm from "./components/TaskForm";
 
 function App() {
   // Store the text entered by the user
@@ -140,20 +143,11 @@ function App() {
       </header>
 
       {/* Task Creation Form */}
-      <section className="task-form">
-        <h2>Add a new task</h2>
-
-        <input
-          type="text"
-          placeholder="Enter your task title..."
-          value={taskTitle}
-          onChange={(event) => setTaskTitle(event.target.value)}
-        />
-
-        <button type="button" onClick={addTask}>
-          + Add Task
-        </button>
-      </section>
+      <TaskForm
+        taskTitle={taskTitle}
+        setTaskTitle={setTaskTitle}
+        onAddTask={addTask}
+      />
 
       {/* Display Tasks */}
       <section className="task-list">
@@ -178,27 +172,11 @@ function App() {
         {tasks.length === 0 ? (
           <p>No tasks yet. Add your first task!</p>
         ) : (
-          filteredTasks.map((task) => (
-            <div className="task-item" key={task.id}>
-              <span className={task.completed ? "completed" : ""}>
-                {task.title}
-              </span>
-
-              <div className="task-actions">
-                <button type="button" onClick={() => toggleTask(task.id)}>
-                  {task.completed ? "Undo" : "Complete"}
-                </button>
-
-                <button
-                  type="button"
-                  className="delete-btn"
-                  onClick={() => deleteTask(task.id)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))
+          <TaskList
+            tasks={filteredTasks}
+            onToggle={toggleTask}
+            onDelete={deleteTask}
+          />
         )}
       </section>
     </div>
