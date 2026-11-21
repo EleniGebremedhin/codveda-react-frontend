@@ -15,6 +15,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [isAdding, setIsAdding] = useState(false);
+  const [updatingTaskId, setUpdatingTaskId] = useState(null);
+  const [deletingTaskId, setDeletingTaskId] = useState(null);
 
   // Fetch tasks from the backend when the app loads
   useEffect(() => {
@@ -79,13 +81,16 @@ function App() {
   async function toggleTask(id) {
     const taskToUpdate = tasks.find((task) => task.id === id);
 
-    if (!taskToUpdate) {
+    if (!taskToUpdate || updatingTaskId !== null) {
       return;
     }
 
     const updatedStatus = !taskToUpdate.completed;
 
     try {
+      setUpdatingTaskId(id);
+      setError("");
+
       const response = await fetch(`http://localhost:3000/tasks/${id}`, {
         method: "PUT",
         headers: {
@@ -107,11 +112,20 @@ function App() {
       );
     } catch (error) {
       setError(error.message);
+    } finally {
+      setUpdatingTaskId(null);
     }
   }
   // Function to delete a task
   async function deleteTask(id) {
+    if (deletingTaskId !== null) {
+      return;
+    }
+
     try {
+      setDeletingTaskId(id);
+      setError("");
+
       const response = await fetch(`http://localhost:3000/tasks/${id}`, {
         method: "DELETE",
       });
@@ -123,6 +137,8 @@ function App() {
       setTasks(tasks.filter((task) => task.id !== id));
     } catch (error) {
       setError(error.message);
+    } finally {
+      setDeletingTaskId(null);
     }
   }
   // Filter tasks based on their completion status
@@ -182,6 +198,8 @@ function App() {
             tasks={filteredTasks}
             onToggle={toggleTask}
             onDelete={deleteTask}
+            updatingTaskId={updatingTaskId}
+            deletingTaskId={deletingTaskId}
           />
         )}
       </section>
