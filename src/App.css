@@ -195,3 +195,74 @@ p {
   border-radius: 8px;
   margin-bottom: 15px;
 }
+
+/* Tablet responsiveness */
+@media (max-width: 768px) {
+  .app {
+    margin: 30px auto;
+    padding: 24px;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  .task-item {
+    flex-wrap: wrap;
+  }
+
+  .task-actions {
+    flex-wrap: wrap;
+  }
+
+  .filter-buttons {
+    flex-wrap: wrap;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .app {
+    margin: 15px auto;
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  .task-form {
+    padding: 18px;
+  }
+
+  .task-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .task-item > span {
+    overflow-wrap: anywhere;
+  }
+
+  .task-actions {
+    width: 100%;
+  }
+
+  .task-actions button {
+    flex: 1;
+  }
+
+  .filter-buttons {
+    gap: 8px;
+  }
+
+  .filter-buttons button {
+    flex: 1 1 auto;
+  }
+
+  .task-list input {
+    font-size: 14px;
+  }
+}
