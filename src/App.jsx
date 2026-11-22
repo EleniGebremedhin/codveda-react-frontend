@@ -46,7 +46,13 @@ function App() {
 
   // Function to add a new task
   async function addTask() {
-    if (taskTitle.trim() === "" || isAdding) {
+    if (isAdding) {
+      return;
+    }
+
+    if (taskTitle.trim() === "") {
+      setError("Please enter a task title.");
+      setSuccess("");
       return;
     }
 
